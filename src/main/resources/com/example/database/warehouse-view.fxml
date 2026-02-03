@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.database.WareHouse.WarehouseController"
+            fitToWidth="true"
+            hbarPolicy="NEVER"
+            vbarPolicy="AS_NEEDED"
+            style="-fx-background: #0f172a; -fx-background-color: #0f172a;">
+
+    <stylesheets>
+        <URL value="@dark-table.css"/>
+    </stylesheets>
+
+    <content>
+        <BorderPane style="-fx-background-color: #0f172a;">
+
+            <top>
+                <HBox spacing="12"
+                      style="-fx-background-color: #020617; -fx-border-color: #1e293b; -fx-border-width: 0 0 1 0;">
+                    <padding><Insets top="14" right="18" bottom="14" left="18"/></padding>
+
+                    <Label text="WAREHOUSES"
+                           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #f8fafc;" />
+
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <ComboBox fx:id="searchByCombo" prefWidth="160"
+                              style="-fx-background-color: white; -fx-border-color: #1e293b; -fx-border-radius: 6; -fx-background-radius: 6;" />
+
+                    <HBox fx:id="searchFieldContainer" HBox.hgrow="SOMETIMES">
+                    </HBox>
+
+                    <Button text="Search" onAction="#onSearch"
+                            style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6;" />
+
+                    <Button text="Refresh" onAction="#onRefresh"
+                            style="-fx-background-color: #334155; -fx-text-fill: #e5e7eb; -fx-background-radius: 6;" />
+                </HBox>
+            </top>
+
+            <center>
+                <VBox spacing="16">
+                    <padding><Insets top="16" right="18" bottom="16" left="18"/></padding>
+
+                    <VBox spacing="14"
+                          style="-fx-background-color: #020617; -fx-border-color: #1e293b; -fx-border-radius: 12; -fx-background-radius: 12;">
+                        <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+
+                        <Label text="Warehouse Details"
+                               style="-fx-text-fill: #f8fafc; -fx-font-size: 16px; -fx-font-weight: bold;" />
+
+                        <GridPane hgap="20" vgap="16">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="50" />
+                                <ColumnConstraints percentWidth="50" />
+                            </columnConstraints>
+
+                            <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                <Label text="Warehouse ID" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                <TextField fx:id="idField" editable="false"
+                                           style="-fx-control-inner-background: #0f172a; -fx-background-color: #0f172a;
+                                                  -fx-text-fill: #e5e7eb; -fx-border-color: #1e293b; -fx-border-radius: 6;
+                                                  -fx-background-radius: 6; -fx-padding: 10;" />
+                            </VBox>
+
+                            <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                <Label text="Warehouse Name" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                <TextField fx:id="nameField"
+                                           style="-fx-background-color: rgba(255,255,255,0.92); -fx-padding: 10;" />
+                            </VBox>
+
+                            <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2">
+                                <Label text="Address" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                <TextField fx:id="addressField"
+                                           style="-fx-background-color: rgba(255,255,255,0.92); -fx-padding: 10;" />
+                            </VBox>
+
+                            <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                                <Label text="Date of Establishment" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                <DatePicker fx:id="dateOfEstablishmentPicker" maxWidth="Infinity"
+                                            style="-fx-background-color: rgba(255,255,255,0.92);" />
+                            </VBox>
+
+                            <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                <Label text="Max Storage Capacity" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                <TextField fx:id="maxStorageField" promptText="0"
+                                           style="-fx-background-color: rgba(255,255,255,0.92); -fx-padding: 10;" />
+                            </VBox>
+
+                            <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2">
+                                <Label text="Current Storage (Auto-calculated)" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                <TextField fx:id="currentStorageField" editable="false"
+                                           style="-fx-control-inner-background: #1e293b; -fx-background-color: #1e293b;
+                                                  -fx-text-fill: #22c55e; -fx-font-weight: bold; -fx-font-size: 16px;
+                                                  -fx-border-color: #22c55e; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 12;" />
+                            </VBox>
+
+                            <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2">
+                                <CheckBox fx:id="isDisabledCheckBox" text="Mark Warehouse as Disabled"
+                                          style="-fx-text-fill: #e5e7eb; -fx-font-size: 13px;" />
+                            </VBox>
+                        </GridPane>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Button text="INSERT" onAction="#onInsert"
+                                    style="-fx-background-color: #16a34a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" />
+                            <Button text="UPDATE" onAction="#onUpdate"
+                                    style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" />
+                            <Button text="CLEAR" onAction="#onClear"
+                                    style="-fx-background-color: #334155; -fx-text-fill: #e5e7eb; -fx-background-radius: 8;" />
+                            <Button text="DISABLE WAREHOUSE" onAction="#onDisableWarehouse"
+                                    style="-fx-background-color: #f59e0b; -fx-text-fill: #111827; -fx-font-weight: bold; -fx-background-radius: 8;" />
+
+                            <Button fx:id="confirmButton" text="CONFIRM" onAction="#onConfirm"
+                                    style="-fx-background-color: #22c55e; -fx-text-fill: #052e16; -fx-font-weight: bold; -fx-background-radius: 8;" />
+                            <Button fx:id="cancelButton" text="CANCEL" onAction="#onCancel"
+                                    style="-fx-background-color: #64748b; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" />
+
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="statusLabel" style="-fx-text-fill: #38bdf8;" />
+                        </HBox>
+                    </VBox>
+
+                    <HBox spacing="16">
+                        <VBox spacing="14" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: #020617; -fx-border-color: #1e293b; -fx-border-radius: 12; -fx-background-radius: 12;">
+                            <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+
+                            <Label text="Inventory Items"
+                                   style="-fx-text-fill: #f8fafc; -fx-font-size: 16px; -fx-font-weight: bold;" />
+
+                            <GridPane hgap="14" vgap="12">
+                                <columnConstraints>
+                                    <ColumnConstraints percentWidth="50"/>
+                                    <ColumnConstraints percentWidth="50"/>
+                                </columnConstraints>
+
+                                <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                    <Label text="Product" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;"/>
+                                    <ComboBox fx:id="productComboBox" promptText="Select Product" maxWidth="Infinity"
+                                              style="-fx-background-color: rgba(255,255,255,0.92);"/>
+                                </VBox>
+
+                                <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <Label text="Quantity" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;"/>
+                                    <HBox spacing="8">
+                                        <TextField fx:id="quantityTextField" promptText="1" prefWidth="60"
+                                                   style="-fx-background-color: rgba(255,255,255,0.92); -fx-padding: 10;"/>
+                                        <Slider fx:id="quantitySlider" min="1" max="1000" value="1" showTickMarks="true" HBox.hgrow="ALWAYS"/>
+                                    </HBox>
+                                </VBox>
+                            </GridPane>
+
+                            <HBox spacing="10">
+                                <Button fx:id="addItemButton" text="ADD ITEM" onAction="#onAddItem"
+                                        style="-fx-background-color: #16a34a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+                                <Button fx:id="updateItemButton" text="UPDATE ITEM" onAction="#onUpdateItem"
+                                        style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+                                <Button fx:id="removeItemButton" text="REMOVE ITEM" onAction="#onRemoveItem"
+                                        style="-fx-background-color: #dc2626; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+                                <Button text="TOGGLE STATUS" onAction="#onToggleItemStatus"
+                                        style="-fx-background-color: #f59e0b; -fx-text-fill: #111827; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+                            </HBox>
+
+                            <TableView fx:id="inventoryTable" prefHeight="180">
+                                <columns>
+                                    <TableColumn fx:id="itemStatusColumn" text="Disabled" prefWidth="70"/>
+                                    <TableColumn fx:id="productIdColumn" text="Product ID" prefWidth="90"/>
+                                    <TableColumn fx:id="productNameColumn" text="Product Name" prefWidth="200"/>
+                                    <TableColumn fx:id="quantityColumn" text="Quantity" prefWidth="100"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
+
+                        <VBox spacing="14" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: #020617; -fx-border-color: #1e293b; -fx-border-radius: 12; -fx-background-radius: 12;">
+                            <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+
+                            <Label text="Contact Numbers"
+                                   style="-fx-text-fill: #f8fafc; -fx-font-size: 16px; -fx-font-weight: bold;" />
+
+                            <VBox spacing="6">
+                                <Label text="Contact Number" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;"/>
+                                <TextField fx:id="contactNumberField" promptText="Enter contact number"
+                                           style="-fx-background-color: rgba(255,255,255,0.92); -fx-padding: 10;"/>
+                            </VBox>
+
+                            <HBox spacing="10">
+                                <Button fx:id="addContactButton" text="ADD CONTACT" onAction="#onAddContact"
+                                        style="-fx-background-color: #16a34a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+                                <Button fx:id="updateContactButton" text="UPDATE" onAction="#onUpdateContact"
+                                        style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+                                <Button fx:id="removeContactButton" text="REMOVE" onAction="#onRemoveContact"
+                                        style="-fx-background-color: #dc2626; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+                                <Button text="CLEAR" onAction="#onClearContact"
+                                        style="-fx-background-color: #64748b; -fx-text-fill: white; -fx-background-radius: 8;"/>
+                            </HBox>
+
+                            <TableView fx:id="contactTable" prefHeight="180">
+                                <columns>
+                                    <TableColumn fx:id="contactIdColumn" text="ID" prefWidth="60"/>
+                                    <TableColumn fx:id="contactNumberColumn" text="Contact Number" prefWidth="300"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
+                    </HBox>
+
+                    <VBox spacing="10"
+                          style="-fx-background-color: #020617; -fx-border-color: #1e293b; -fx-border-radius: 12; -fx-background-radius: 12;">
+                        <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <Label text="Warehouses List"
+                                   style="-fx-text-fill: #f8fafc; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+
+                            <HBox spacing="8" alignment="CENTER_RIGHT">
+                                <Label text="Warehouse:" style="-fx-text-fill: #94a3b8;"/>
+                                <Label fx:id="infoWarehouseId" text="-" style="-fx-text-fill: #e5e7eb; -fx-font-weight: bold;"/>
+                                <Label text="| Name:" style="-fx-text-fill: #94a3b8;"/>
+                                <Label fx:id="infoWarehouseName" text="-" style="-fx-text-fill: #e5e7eb;"/>
+                                <Label text="| Capacity:" style="-fx-text-fill: #94a3b8;"/>
+                                <Label fx:id="infoCapacityPercentage" text="-" style="-fx-text-fill: #22c55e; -fx-font-weight: bold;"/>
+                            </HBox>
+                        </HBox>
+
+                        <TableView fx:id="warehouseTable" prefHeight="300">
+                            <columns>
+                                <TableColumn fx:id="statusColumn" text="Disabled" prefWidth="80"/>
+                                <TableColumn fx:id="idColumn" text="ID" prefWidth="70"/>
+                                <TableColumn fx:id="nameColumn" text="Name" prefWidth="200"/>
+                                <TableColumn fx:id="addressColumn" text="Address" prefWidth="300"/>
+                                <TableColumn fx:id="dateColumn" text="Established" prefWidth="120"/>
+                                <TableColumn fx:id="maxStorageColumn" text="Max Storage" prefWidth="100"/>
+                                <TableColumn fx:id="currentStorageColumn" text="Current" prefWidth="100"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+
+                </VBox>
+            </center>
+
+        </BorderPane>
+    </content>
+</ScrollPane>

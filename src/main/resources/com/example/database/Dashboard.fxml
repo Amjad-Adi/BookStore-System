@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+<?import java.net.URL?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.database.DashBoard.DashboardController"
+            fitToWidth="true"
+            hbarPolicy="NEVER"
+            vbarPolicy="AS_NEEDED"
+            styleClass="dash-scroll">
+
+    <stylesheets>
+        <URL value="@dashboard.css"/>
+        <URL value="@dark-table.css"/>
+    </stylesheets>
+
+    <content>
+        <VBox spacing="20" styleClass="dash-root">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+            <!-- Header -->
+            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="dash-card">
+                <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+                <VBox spacing="2">
+                    <Label text="System Dashboard" styleClass="dash-title" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                    <Label text="Real-time analytics and recent activity" styleClass="dash-sub" style="-fx-text-fill: #94a3b8;"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="🔄 Refresh Data" onAction="#onRefresh" styleClass="dash-btn" style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-cursor: hand; -fx-padding: 8 16;"/>
+                <Label fx:id="statusLabel" text="" styleClass="dash-status" style="-fx-text-fill: #10b981;"/>
+            </HBox>
+
+            <!-- KPI Cards -->
+            <GridPane hgap="15" vgap="15">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33"/>
+                </columnConstraints>
+
+                <VBox GridPane.columnIndex="0" styleClass="kpi" style="-fx-background-color: #1e293b; -fx-background-radius: 12; -fx-padding: 20;">
+                    <Label text="👥 Total Customers" styleClass="kpi-title" style="-fx-text-fill: #94a3b8; -fx-font-size: 13px;"/>
+                    <Label fx:id="customersLabel" text="0" styleClass="kpi-value" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: white; -fx-padding: 8 0 0 0;"/>
+                </VBox>
+                <VBox GridPane.columnIndex="1" styleClass="kpi" style="-fx-background-color: #1e293b; -fx-background-radius: 12; -fx-padding: 20;">
+                    <Label text="📦 Total Orders" styleClass="kpi-title" style="-fx-text-fill: #94a3b8; -fx-font-size: 13px;"/>
+                    <Label fx:id="ordersLabel" text="0" styleClass="kpi-value" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: white; -fx-padding: 8 0 0 0;"/>
+                </VBox>
+                <VBox GridPane.columnIndex="2" styleClass="kpi" style="-fx-background-color: #1e293b; -fx-background-radius: 12; -fx-padding: 20;">
+                    <Label text="💰 Total Revenue" styleClass="kpi-title" style="-fx-text-fill: #94a3b8; -fx-font-size: 13px;"/>
+                    <Label fx:id="revenueLabel" text="0.00$" styleClass="kpi-value" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #10b981; -fx-padding: 8 0 0 0;"/>
+                </VBox>
+            </GridPane>
+
+            <!-- Charts Section 1 - Revenue & Orders -->
+            <GridPane hgap="20" vgap="20">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                </columnConstraints>
+
+                <!-- Monthly Revenue Trend -->
+                <VBox styleClass="dash-card" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-background-color: #1e293b; -fx-background-radius: 12; -fx-padding: 16;">
+                    <Label text="📈 Monthly Revenue Trend" styleClass="section-title" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 0 0 10 0;"/>
+                    <AreaChart fx:id="revenueMonthlyChart" prefHeight="320" animated="false" legendVisible="false">
+                        <xAxis><CategoryAxis side="BOTTOM" tickLabelFill="WHITE" label="Month"/></xAxis>
+                        <yAxis><NumberAxis side="LEFT" tickLabelFill="WHITE" label="Revenue ($)"/></yAxis>
+                    </AreaChart>
+                </VBox>
+
+                <!-- Customer Growth -->
+                <VBox styleClass="dash-card" GridPane.columnIndex="1" GridPane.rowIndex="0" style="-fx-background-color: #1e293b; -fx-background-radius: 12; -fx-padding: 16;">
+                    <Label text="👥 Customer Growth" styleClass="section-title" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 0 0 10 0;"/>
+                    <LineChart fx:id="customerGrowthChart" prefHeight="320" animated="false">
+                        <xAxis><CategoryAxis side="BOTTOM" tickLabelFill="WHITE" label="Month"/></xAxis>
+                        <yAxis><NumberAxis side="LEFT" tickLabelFill="WHITE" label="Customers"/></yAxis>
+                    </LineChart>
+                </VBox>
+
+                <!-- Revenue by Payment Method -->
+                <VBox styleClass="dash-card" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-background-color: #1e293b; -fx-background-radius: 12; -fx-padding: 16;">
+                    <Label text="💳 Revenue by Payment Method" styleClass="section-title" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 0 0 10 0;"/>
+                    <BarChart fx:id="revenueChart" prefHeight="320" animated="false" legendVisible="false">
+                        <xAxis><CategoryAxis side="BOTTOM" tickLabelFill="WHITE" label="Payment Method"/></xAxis>
+                        <yAxis><NumberAxis side="LEFT" tickLabelFill="WHITE" label="Revenue ($)"/></yAxis>
+                    </BarChart>
+                </VBox>
+
+                <!-- Order Types -->
+                <VBox styleClass="dash-card" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-background-color: #1e293b; -fx-background-radius: 12; -fx-padding: 16;">
+                    <Label text="📋 Order Types Distribution" styleClass="section-title" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 0 0 10 0;"/>
+                    <BarChart fx:id="orderTypeChart" prefHeight="320" animated="false" legendVisible="false">
+                        <xAxis><CategoryAxis side="BOTTOM" tickLabelFill="WHITE" label="Order Type"/></xAxis>
+                        <yAxis><NumberAxis side="LEFT" tickLabelFill="WHITE" label="Count"/></yAxis>
+                    </BarChart>
+                </VBox>
+            </GridPane>
+
+            <!-- Charts Section 2 - Pie Charts -->
+            <GridPane hgap="20" vgap="20">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                </columnConstraints>
+
+                <!-- Product Categories -->
+                <VBox styleClass="dash-card" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-background-color: #1e293b; -fx-background-radius: 12; -fx-padding: 16;">
+                    <Label text="📚 Product Categories" styleClass="section-title" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 0 0 10 0;"/>
+                    <PieChart fx:id="categoryPieChart" prefHeight="300" legendVisible="true"/>
+                </VBox>
+
+                <!-- Payment Status -->
+                <VBox styleClass="dash-card" GridPane.columnIndex="1" GridPane.rowIndex="0" style="-fx-background-color: #1e293b; -fx-background-radius: 12; -fx-padding: 16;">
+                    <Label text="💵 Payment Status" styleClass="section-title" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 0 0 10 0;"/>
+                    <PieChart fx:id="statusPieChart" prefHeight="300" legendVisible="true"/>
+                </VBox>
+
+                <!-- Channel Distribution -->
+                <VBox styleClass="dash-card" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" style="-fx-background-color: #1e293b; -fx-background-radius: 12; -fx-padding: 16;">
+                    <Label text="🛒 Sales Channel Distribution" styleClass="section-title" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 0 0 10 0;"/>
+                    <PieChart fx:id="channelDistributionChart" prefHeight="300" legendVisible="true"/>
+                </VBox>
+            </GridPane>
+
+            <!-- Recent Orders Table -->
+            <VBox spacing="10" styleClass="dash-card" style="-fx-background-color: #1e293b; -fx-background-radius: 12;">
+                <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="📋 Recent Orders" styleClass="section-title" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="recentCountLabel" text="" style="-fx-text-fill: #64748b; -fx-font-size: 13px;"/>
+                </HBox>
+                <TableView fx:id="recentOrdersTable" prefHeight="350" styleClass="dark-table">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+                        <TableColumn fx:id="colDate" text="Date" prefWidth="120"/>
+                        <TableColumn fx:id="colChannel" text="Channel" prefWidth="100"/>
+                        <TableColumn fx:id="colCost" text="Cost" prefWidth="100"/>
+                        <TableColumn fx:id="colPaid" text="Paid" prefWidth="100"/>
+                        <TableColumn fx:id="colStatus" text="Status" prefWidth="120"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>

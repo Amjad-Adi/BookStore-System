@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.database.Orders.OrderController"
+            fitToWidth="true"
+            hbarPolicy="NEVER"
+            vbarPolicy="AS_NEEDED"
+            style="-fx-background: #0f172a; -fx-background-color: #0f172a;">
+
+    <stylesheets>
+        <URL value="@dark-table.css"/>
+    </stylesheets>
+
+    <content>
+        <BorderPane style="-fx-background-color: #0f172a;">
+
+            <top>
+                <HBox spacing="12"
+                      style="-fx-background-color: #020617; -fx-border-color: #1e293b; -fx-border-width: 0 0 1 0;">
+                    <padding><Insets top="14" right="18" bottom="14" left="18"/></padding>
+
+                    <Label text="ORDERS"
+                           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #f8fafc;" />
+
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <ComboBox fx:id="searchByCombo" prefWidth="160"
+                              style="-fx-background-color: white; -fx-border-color: #1e293b; -fx-border-radius: 6; -fx-background-radius: 6;" />
+
+                    <HBox fx:id="searchFieldContainer" HBox.hgrow="SOMETIMES">
+                    </HBox>
+
+                    <Button text="Search" onAction="#onSearch"
+                            style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6;" />
+
+                    <Button text="Refresh" onAction="#onRefresh"
+                            style="-fx-background-color: #334155; -fx-text-fill: #e5e7eb; -fx-background-radius: 6;" />
+                </HBox>
+            </top>
+
+            <center>
+                <VBox spacing="16">
+                    <padding><Insets top="16" right="18" bottom="16" left="18"/></padding>
+
+                    <VBox spacing="14"
+                          style="-fx-background-color: #020617; -fx-border-color: #1e293b; -fx-border-radius: 12; -fx-background-radius: 12;">
+                        <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+
+                        <Label text="Order Details"
+                               style="-fx-text-fill: #f8fafc; -fx-font-size: 16px; -fx-font-weight: bold;" />
+
+                        <GridPane hgap="20" vgap="16">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="50" />
+                                <ColumnConstraints percentWidth="50" />
+                            </columnConstraints>
+
+                            <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                <Label text="Order ID" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                <TextField fx:id="idField" editable="false"
+                                           style="-fx-control-inner-background: #0f172a; -fx-background-color: #0f172a;
+                                                  -fx-text-fill: #e5e7eb; -fx-border-color: #1e293b; -fx-border-radius: 6;
+                                                  -fx-background-radius: 6; -fx-padding: 10;" />
+                            </VBox>
+
+                            <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                <Label text="Order Date" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                <DatePicker fx:id="datePicker" maxWidth="Infinity"
+                                            style="-fx-background-color: rgba(255,255,255,0.92);" />
+                            </VBox>
+
+                            <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2">
+                                <Label text="Order Type" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                <HBox spacing="20">
+                                    <RadioButton fx:id="saleRadioButton" text="Sale"
+                                                 style="-fx-text-fill: #e5e7eb; -fx-font-size: 13px;">
+                                        <toggleGroup>
+                                            <ToggleGroup fx:id="orderTypeGroup"/>
+                                        </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton fx:id="rentalRadioButton" text="Rental" toggleGroup="$orderTypeGroup"
+                                                 style="-fx-text-fill: #e5e7eb; -fx-font-size: 13px;" />
+                                </HBox>
+                            </VBox>
+
+                            <VBox fx:id="rentalFieldsContainer" spacing="16"
+                                  GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2"
+                                  visible="false" managed="false"
+                                  style="-fx-background-color: rgba(139,92,246,0.1); -fx-border-color: #8b5cf6;
+                                         -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 16;">
+
+                                <Label text="🏠 Rental Details"
+                                       style="-fx-text-fill: #c4b5fd; -fx-font-size: 14px; -fx-font-weight: bold;" />
+
+                                <GridPane hgap="20" vgap="12">
+                                    <columnConstraints>
+                                        <ColumnConstraints percentWidth="50" />
+                                        <ColumnConstraints percentWidth="50" />
+                                    </columnConstraints>
+
+                                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                        <Label text="Rental Start Date" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                        <DatePicker fx:id="rentalStartDatePicker" maxWidth="Infinity"
+                                                    style="-fx-background-color: rgba(255,255,255,0.92);" />
+                                    </VBox>
+
+                                    <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                        <Label text="Rental End Date" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                        <DatePicker fx:id="rentalEndDatePicker" maxWidth="Infinity"
+                                                    style="-fx-background-color: rgba(255,255,255,0.92);" />
+                                    </VBox>
+
+                                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                        <Label text="Return Date" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                        <DatePicker fx:id="returnDatePicker" maxWidth="Infinity" promptText="Optional"
+                                                    style="-fx-background-color: rgba(255,255,255,0.92);" />
+                                    </VBox>
+
+                                    <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                        <Label text="Rental Status" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                        <ComboBox fx:id="rentalStatusCombo" promptText="Select Status" maxWidth="Infinity"
+                                                  style="-fx-background-color: rgba(255,255,255,0.92);" />
+                                    </VBox>
+                                </GridPane>
+                            </VBox>
+
+                            <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                                <Label text="Customer" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                <ComboBox fx:id="customerCombo" promptText="Select Customer" maxWidth="Infinity"
+                                          style="-fx-background-color: rgba(255,255,255,0.92);" />
+                            </VBox>
+
+                            <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                <Label text="Payment Plan" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                <ComboBox fx:id="paymentPlanCombo" promptText="Select Payment Plan" maxWidth="Infinity"
+                                          style="-fx-background-color: rgba(255,255,255,0.92);" />
+                            </VBox>
+
+                            <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                                <Label text="Channel" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                <ComboBox fx:id="channelCombo" promptText="Select Channel" maxWidth="Infinity"
+                                          style="-fx-background-color: rgba(255,255,255,0.92);" />
+                            </VBox>
+
+                            <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                <Label text="Payment Method" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                <ComboBox fx:id="paymentMethodCombo" promptText="Select Method" maxWidth="Infinity"
+                                          style="-fx-background-color: rgba(255,255,255,0.92);" />
+                            </VBox>
+
+                            <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="5">
+                                <Label text="Payment Status" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                <ComboBox fx:id="statusCombo" promptText="Select Status" maxWidth="Infinity"
+                                          style="-fx-background-color: rgba(255,255,255,0.92);" />
+                            </VBox>
+
+                            <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                <Label text="Amount Paid" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                <TextField fx:id="amountPaidField" promptText="0.00"
+                                           style="-fx-background-color: rgba(255,255,255,0.92); -fx-padding: 10;" />
+                            </VBox>
+
+                            <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.columnSpan="2">
+                                <Label text="Total Cost (Auto-calculated)" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                <TextField fx:id="costField" editable="false"
+                                           style="-fx-control-inner-background: #1e293b; -fx-background-color: #1e293b;
+                                                  -fx-text-fill: #22c55e; -fx-font-weight: bold; -fx-font-size: 16px;
+                                                  -fx-border-color: #22c55e; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 12;" />
+                            </VBox>
+
+                            <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.columnSpan="2">
+                                <Label text="Order Information" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+                                <TextArea fx:id="infoArea" promptText="Enter any relevant information..." prefHeight="60" wrapText="true"
+                                          style="-fx-background-color: rgba(255,255,255,0.92); -fx-control-inner-background: rgba(255,255,255,0.92);" />
+                            </VBox>
+
+                            <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="8" GridPane.columnSpan="2">
+                                <CheckBox fx:id="isDisabledCheckBox" text="Mark Order as Disabled"
+                                          style="-fx-text-fill: #e5e7eb; -fx-font-size: 13px;" />
+                            </VBox>
+                        </GridPane>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Button text="INSERT" onAction="#onInsert"
+                                    style="-fx-background-color: #16a34a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" />
+                            <Button text="UPDATE" onAction="#onUpdate"
+                                    style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" />
+                            <Button text="CLEAR" onAction="#onClear"
+                                    style="-fx-background-color: #334155; -fx-text-fill: #e5e7eb; -fx-background-radius: 8;" />
+                            <Button text="DISABLE ORDER" onAction="#onDisableOrder"
+                                    style="-fx-background-color: #f59e0b; -fx-text-fill: #111827; -fx-font-weight: bold; -fx-background-radius: 8;" />
+
+                            <Button fx:id="confirmButton" text="CONFIRM" onAction="#onConfirm"
+                                    style="-fx-background-color: #22c55e; -fx-text-fill: #052e16; -fx-font-weight: bold; -fx-background-radius: 8;" />
+                            <Button fx:id="cancelButton" text="CANCEL" onAction="#onCancel"
+                                    style="-fx-background-color: #64748b; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" />
+
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="statusLabel" style="-fx-text-fill: #38bdf8;" />
+                        </HBox>
+                    </VBox>
+
+                    <VBox spacing="14"
+                          style="-fx-background-color: #020617; -fx-border-color: #1e293b; -fx-border-radius: 12; -fx-background-radius: 12;">
+                        <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+
+                        <Label text="Order Items"
+                               style="-fx-text-fill: #f8fafc; -fx-font-size: 16px; -fx-font-weight: bold;" />
+
+                        <GridPane hgap="14" vgap="12">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="40"/>
+                                <ColumnConstraints percentWidth="30"/>
+                                <ColumnConstraints percentWidth="30"/>
+                            </columnConstraints>
+
+                            <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                <Label text="Product" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;"/>
+                                <ComboBox fx:id="productComboBox" promptText="Select Product" maxWidth="Infinity"
+                                          style="-fx-background-color: rgba(255,255,255,0.92);"/>
+                            </VBox>
+
+                            <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                <Label text="Quantity" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;"/>
+                                <HBox spacing="8">
+                                    <TextField fx:id="quantityTextField" promptText="1" prefWidth="80"
+                                               style="-fx-background-color: rgba(255,255,255,0.92); -fx-padding: 10;"/>
+                                    <Slider fx:id="quantitySlider" min="1" max="100" value="1" showTickMarks="true" HBox.hgrow="ALWAYS"/>
+                                </HBox>
+                            </VBox>
+
+                            <VBox spacing="6" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                <Label text="Price at Time" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;"/>
+                                <TextField fx:id="priceAtTimeTextField" promptText="0.00"
+                                           style="-fx-background-color: rgba(255,255,255,0.92); -fx-padding: 10;"/>
+                            </VBox>
+                        </GridPane>
+
+                        <HBox spacing="10">
+                            <Button fx:id="addItemButton" text="ADD ITEM" onAction="#onAddItem"
+                                    style="-fx-background-color: #16a34a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+                            <Button fx:id="updateItemButton" text="UPDATE ITEM" onAction="#onUpdateItem"
+                                    style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+                            <Button fx:id="removeItemButton" text="REMOVE ITEM" onAction="#onRemoveItem"
+                                    style="-fx-background-color: #dc2626; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+                            <Button text="TOGGLE ITEM STATUS" onAction="#onToggleItemStatus"
+                                    style="-fx-background-color: #f59e0b; -fx-text-fill: #111827; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+                        </HBox>
+
+                        <TableView fx:id="orderItemTable" prefHeight="200">
+                            <columns>
+                                <TableColumn fx:id="itemStatusColumn" text="Status" prefWidth="80"/>
+                                <TableColumn fx:id="productIdColumn" text="Product ID" prefWidth="100"/>
+                                <TableColumn fx:id="productNameColumn" text="Product Name" prefWidth="250"/>
+                                <TableColumn fx:id="quantityColumn" text="Quantity" prefWidth="100"/>
+                                <TableColumn fx:id="priceAtTimeColumn" text="Price" prefWidth="100"/>
+                                <TableColumn fx:id="lineTotalColumn" text="Line Total" prefWidth="120"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+
+                    <VBox spacing="10"
+                          style="-fx-background-color: #020617; -fx-border-color: #1e293b; -fx-border-radius: 12; -fx-background-radius: 12;">
+                        <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <Label text="Orders List"
+                                   style="-fx-text-fill: #f8fafc; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+
+                            <HBox spacing="8" alignment="CENTER_RIGHT">
+                                <Label text="Order:" style="-fx-text-fill: #94a3b8;"/>
+                                <Label fx:id="infoOrderId" text="-" style="-fx-text-fill: #e5e7eb; -fx-font-weight: bold;"/>
+                                <Label text="| Customer:" style="-fx-text-fill: #94a3b8;"/>
+                                <Label fx:id="infoCustomer" text="-" style="-fx-text-fill: #e5e7eb;"/>
+                                <Label text="| Total:" style="-fx-text-fill: #94a3b8;"/>
+                                <Label fx:id="infoTotalCost" text="-" style="-fx-text-fill: #22c55e; -fx-font-weight: bold;"/>
+                            </HBox>
+                        </HBox>
+
+                        <TableView fx:id="orderTable" prefHeight="300">
+                            <columns>
+                                <TableColumn fx:id="statusColumn" text="Disabled" prefWidth="80"/>
+                                <TableColumn fx:id="idColumn" text="ID" prefWidth="70"/>
+                                <TableColumn fx:id="dateColumn" text="Date" prefWidth="120"/>
+                                <TableColumn fx:id="costColumn" text="Cost" prefWidth="100"/>
+                                <TableColumn fx:id="paymentStatusColumn" text="Payment Status" prefWidth="130"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+
+                </VBox>
+            </center>
+
+        </BorderPane>
+    </content>
+</ScrollPane>

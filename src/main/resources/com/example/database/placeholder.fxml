@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.database.DashBoard.PlaceholderController"
+           style="-fx-background-color: transparent;">
+
+    <VBox spacing="10"
+          style="-fx-background-color: rgba(2,6,23,0.72);
+                 -fx-background-radius: 16;
+                 -fx-border-radius: 16;
+                 -fx-border-color: rgba(30,41,59,0.85);"
+          maxWidth="520">
+        <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+
+        <Label fx:id="titleLabel" text="Coming soon"
+               style="-fx-text-fill:#f8fafc; -fx-font-size:18px; -fx-font-weight:900;"/>
+        <Label fx:id="descLabel" text="This module is not implemented yet."
+               wrapText="true"
+               style="-fx-text-fill: rgba(248,250,252,0.65); -fx-font-size:12px; -fx-font-weight:700;"/>
+    </VBox>
+</StackPane>

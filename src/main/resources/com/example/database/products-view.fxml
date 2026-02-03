@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.database.Products.ProductController"
+            fitToWidth="true"
+            hbarPolicy="NEVER"
+            vbarPolicy="AS_NEEDED"
+            style="-fx-background: #0f172a; -fx-background-color: #0f172a;">
+
+    <stylesheets>
+        <URL value="@dark-table.css"/>
+    </stylesheets>
+
+    <content>
+        <BorderPane prefWidth="1200"
+                    style="-fx-background-color: #0f172a;">
+
+            <!-- ===== TOP BAR (SEARCH) ===== -->
+            <top>
+                <HBox spacing="12"
+                      style="-fx-background-color: #020617; -fx-border-color: #1e293b; -fx-border-width: 0 0 1 0;">
+                    <padding>
+                        <Insets bottom="14" left="18" right="18" top="14" />
+                    </padding>
+
+                    <Label text="PRODUCTS"
+                           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #f8fafc;" />
+
+                    <Region HBox.hgrow="ALWAYS" />
+
+                    <ComboBox fx:id="searchByCombo" prefWidth="220"
+                              style="-fx-background-color: white;
+                                     -fx-border-color: #1e293b;
+                                     -fx-border-radius: 6;
+                                     -fx-background-radius: 6;" />
+
+                    <TextField fx:id="searchField" prefWidth="260" promptText="Search..."
+                               style="-fx-background-color: rgba(255,255,255,0.92);
+                                      -fx-text-fill: #0f172a;
+                                      -fx-prompt-text-fill: rgba(15,23,42,0.55);
+                                      -fx-border-color: #1e293b;
+                                      -fx-border-radius: 6;
+                                      -fx-background-radius: 6;" />
+
+                    <Button onAction="#onSearch" text="Search"
+                            style="-fx-background-color: #2563eb;
+                                   -fx-text-fill: white;
+                                   -fx-font-weight: bold;
+                                   -fx-background-radius: 6;" />
+
+                    <Button onAction="#onRefresh" text="Refresh"
+                            style="-fx-background-color: #334155;
+                                   -fx-text-fill: #e5e7eb;
+                                   -fx-background-radius: 6;" />
+                </HBox>
+            </top>
+
+            <!-- ===== CENTER ===== -->
+            <center>
+                <VBox spacing="16">
+                    <padding>
+                        <Insets bottom="16" left="18" right="18" top="16" />
+                    </padding>
+
+                    <!-- ===== FORM CARD ===== -->
+                    <VBox spacing="14"
+                          style="-fx-background-color: #020617;
+                                 -fx-border-color: #1e293b;
+                                 -fx-border-radius: 12;
+                                 -fx-background-radius: 12;">
+                        <padding>
+                            <Insets bottom="18" left="18" right="18" top="18" />
+                        </padding>
+
+                        <Label text="Product Details"
+                               style="-fx-text-fill: #f8fafc; -fx-font-size: 16px; -fx-font-weight: bold;" />
+
+                        <GridPane hgap="20" vgap="12">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="120" />
+                                <ColumnConstraints hgrow="ALWAYS" />
+                                <ColumnConstraints minWidth="120" />
+                                <ColumnConstraints hgrow="ALWAYS" />
+                            </columnConstraints>
+
+                            <!-- Row 0: ID + Category -->
+                            <Label text="ID" style="-fx-text-fill: #94a3b8;"
+                                   GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                            <TextField fx:id="idField" editable="false"
+                                       style="-fx-control-inner-background: rgba(255,255,255,0.88);
+                                              -fx-background-color: rgba(255,255,255,0.88);
+                                              -fx-text-fill: #0f172a;"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                            <TextFlow GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                <Text text="Category" style="-fx-fill: #94a3b8;" />
+                                <Text text=" *" style="-fx-fill: #ef4444; -fx-font-weight: bold;" />
+                            </TextFlow>
+                            <ComboBox fx:id="categoryComboBox" promptText="Select category..."
+                                      style="-fx-background-color: rgba(255,255,255,0.92);"
+                                      GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+                            <!-- Row 1: Name + Price -->
+                            <TextFlow GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                <Text text="Name" style="-fx-fill: #94a3b8;" />
+                                <Text text=" *" style="-fx-fill: #ef4444; -fx-font-weight: bold;" />
+                            </TextFlow>
+                            <TextField fx:id="nameField" promptText="Enter product name..."
+                                       style="-fx-background-color: rgba(255,255,255,0.92);"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                            <TextFlow GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                <Text text="Price" style="-fx-fill: #94a3b8;" />
+                                <Text text=" *" style="-fx-fill: #ef4444; -fx-font-weight: bold;" />
+                            </TextFlow>
+                            <TextField fx:id="priceField" promptText="e.g., 99.99"
+                                       style="-fx-background-color: rgba(255,255,255,0.92);"
+                                       GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+                            <!-- Row 2: Description + Stock -->
+                            <Label text="Description" style="-fx-text-fill: #94a3b8;"
+                                   GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                            <TextField fx:id="descriptionField" promptText="Product description..."
+                                       style="-fx-background-color: rgba(255,255,255,0.92);"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                            <Label text="Stock" style="-fx-text-fill: #94a3b8;"
+                                   GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                            <TextField fx:id="stockField" promptText="e.g., 100"
+                                       style="-fx-background-color: rgba(255,255,255,0.92);"
+                                       GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+
+                            <!-- Row 3: Company + Status -->
+                            <TextFlow GridPane.columnIndex="0" GridPane.rowIndex="3">
+                                <Text text="Company" style="-fx-fill: #94a3b8;" />
+                                <Text text=" *" style="-fx-fill: #ef4444; -fx-font-weight: bold;" />
+                            </TextFlow>
+                            <TextField fx:id="companyField" promptText="Company name..."
+                                       style="-fx-background-color: rgba(255,255,255,0.92);"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                            <Label text="Status" style="-fx-text-fill: #94a3b8;"
+                                   GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+                            <CheckBox fx:id="isDisabledCheckBox" text="Disable"
+                                      style="-fx-text-fill: #e5e7eb;"
+                                      GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+                        </GridPane>
+
+                        <Separator style="-fx-background-color: #1e293b;" />
+
+                        <!-- Product Type -->
+                        <VBox spacing="8">
+                            <Label text="Product Type"
+                                   style="-fx-text-fill: #94a3b8; -fx-font-size: 12px; -fx-font-weight: bold;" />
+                            <HBox spacing="20">
+                                <RadioButton fx:id="bookRadioButton" text="Book"
+                                             style="-fx-text-fill: #e5e7eb; -fx-font-size: 13px;">
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="productTypeGroup"/>
+                                    </toggleGroup>
+                                </RadioButton>
+                                <RadioButton fx:id="stationeryRadioButton" text="Stationery"
+                                             toggleGroup="$productTypeGroup"
+                                             style="-fx-text-fill: #e5e7eb; -fx-font-size: 13px;" />
+                            </HBox>
+                        </VBox>
+
+                        <!-- Book fields -->
+                        <VBox fx:id="bookFieldsContainer" spacing="12"
+                              style="-fx-background-color: rgba(37, 99, 235, 0.1);
+                                     -fx-border-color: #2563eb;
+                                     -fx-border-width: 1;
+                                     -fx-border-radius: 8;
+                                     -fx-background-radius: 8;
+                                     -fx-padding: 16;">
+                            <Label text="📚 Book Details"
+                                   style="-fx-text-fill: #2563eb; -fx-font-size: 14px; -fx-font-weight: bold;" />
+
+                            <GridPane hgap="20" vgap="12">
+                                <columnConstraints>
+                                    <ColumnConstraints minWidth="120" />
+                                    <ColumnConstraints hgrow="ALWAYS" />
+                                    <ColumnConstraints minWidth="120" />
+                                    <ColumnConstraints hgrow="ALWAYS" />
+                                </columnConstraints>
+
+                                <Label text="ISBN" style="-fx-text-fill: #94a3b8;"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <TextField fx:id="isbnField" promptText="ISBN..."
+                                           style="-fx-background-color: rgba(255,255,255,0.92);"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                                <Label text="Publication Year" style="-fx-text-fill: #94a3b8;"
+                                       GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                                <TextField fx:id="publicationYearField" promptText="e.g., 2023"
+                                           style="-fx-background-color: rgba(255,255,255,0.92);"
+                                           GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+                                <Label text="Author First Name" style="-fx-text-fill: #94a3b8;"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <TextField fx:id="authorFirstNameField" promptText="First name..."
+                                           style="-fx-background-color: rgba(255,255,255,0.92);"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                                <Label text="Author Last Name" style="-fx-text-fill: #94a3b8;"
+                                       GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                                <TextField fx:id="authorLastNameField" promptText="Last name..."
+                                           style="-fx-background-color: rgba(255,255,255,0.92);"
+                                           GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+                                <Label text="Genre" style="-fx-text-fill: #94a3b8;"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                <TextField fx:id="genreField" promptText="Genre..."
+                                           style="-fx-background-color: rgba(255,255,255,0.92);"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                                <Label text="Language" style="-fx-text-fill: #94a3b8;"
+                                       GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                                <TextField fx:id="languageField" promptText="Language..."
+                                           style="-fx-background-color: rgba(255,255,255,0.92);"
+                                           GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+
+                                <Label text="Edition" style="-fx-text-fill: #94a3b8;"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                                <TextField fx:id="editionField" promptText="Edition..."
+                                           style="-fx-background-color: rgba(255,255,255,0.92);"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                                <Label text="Number of Pages" style="-fx-text-fill: #94a3b8;"
+                                       GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+                                <TextField fx:id="numberOfPagesField" promptText="Pages..."
+                                           style="-fx-background-color: rgba(255,255,255,0.92);"
+                                           GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+                            </GridPane>
+                        </VBox>
+
+                        <!-- Stationery fields -->
+                        <VBox fx:id="stationeryFieldsContainer" spacing="12"
+                              style="-fx-background-color: rgba(245, 158, 11, 0.1);
+                                     -fx-border-color: #f59e0b;
+                                     -fx-border-width: 1;
+                                     -fx-border-radius: 8;
+                                     -fx-background-radius: 8;
+                                     -fx-padding: 16;">
+                            <Label text="✏️ Stationery Details"
+                                   style="-fx-text-fill: #f59e0b; -fx-font-size: 14px; -fx-font-weight: bold;" />
+
+                            <GridPane hgap="20" vgap="12">
+                                <columnConstraints>
+                                    <ColumnConstraints minWidth="120" />
+                                    <ColumnConstraints hgrow="ALWAYS" />
+                                    <ColumnConstraints minWidth="120" />
+                                    <ColumnConstraints hgrow="ALWAYS" />
+                                </columnConstraints>
+
+                                <Label text="Color" style="-fx-text-fill: #94a3b8;"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <TextField fx:id="colorField" promptText="Color..."
+                                           style="-fx-background-color: rgba(255,255,255,0.92);"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                                <Label text="Material" style="-fx-text-fill: #94a3b8;"
+                                       GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                                <TextField fx:id="materialField" promptText="Material..."
+                                           style="-fx-background-color: rgba(255,255,255,0.92);"
+                                           GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+                                <Label text="Dimensions" style="-fx-text-fill: #94a3b8;"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <TextField fx:id="dimensionsField" promptText="Dimensions..."
+                                           style="-fx-background-color: rgba(255,255,255,0.92);"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                                <Label text="Production Year" style="-fx-text-fill: #94a3b8;"
+                                       GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                                <TextField fx:id="productionYearField" promptText="e.g., 2023"
+                                           style="-fx-background-color: rgba(255,255,255,0.92);"
+                                           GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                            </GridPane>
+                        </VBox>
+
+                        <!-- Actions -->
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Button text="INSERT" onAction="#onInsert"
+                                    style="-fx-background-color: #16a34a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" />
+                            <Button text="UPDATE" onAction="#onUpdate"
+                                    style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" />
+                            <Button text="CLEAR" onAction="#onClear"
+                                    style="-fx-background-color: #334155; -fx-text-fill: #e5e7eb; -fx-background-radius: 8;" />
+                            <Button fx:id="confirmButton" text="CONFIRM" onAction="#onConfirm"
+                                    style="-fx-background-color: #22c55e; -fx-text-fill: #052e16; -fx-font-weight: bold; -fx-background-radius: 8;" />
+                            <Button fx:id="cancelButton" text="CANCEL" onAction="#onCancel"
+                                    style="-fx-background-color: #64748b; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" />
+
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label fx:id="statusLabel" style="-fx-text-fill: #38bdf8;" minWidth="200"/>
+                            <Region HBox.hgrow="SOMETIMES" />
+
+                            <Button text="Show Reviews" onAction="#onShowReviews"
+                                    style="-fx-background-color: #8b5cf6; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" />
+                        </HBox>
+
+                    </VBox>
+
+                    <!-- ===== TABLE CARD ===== -->
+                    <VBox spacing="10"
+                          style="-fx-background-color: #020617;
+                                 -fx-border-color: #1e293b;
+                                 -fx-border-radius: 12;
+                                 -fx-background-radius: 12;">
+                        <padding>
+                            <Insets bottom="16" left="16" right="16" top="16" />
+                        </padding>
+
+                        <Label text="Products List"
+                               style="-fx-text-fill: #f8fafc; -fx-font-size: 16px; -fx-font-weight: bold;" />
+
+                        <ScrollPane fitToWidth="true" hbarPolicy="AS_NEEDED" vbarPolicy="AS_NEEDED">
+                            <TableView fx:id="productTable" prefHeight="380"
+                                       style="-fx-background-color: #020617;
+                                              -fx-control-inner-background: #020617;
+                                              -fx-table-cell-border-color: #1e293b;
+                                              -fx-text-background-color: #e5e7eb;">
+                                <columns>
+                                    <TableColumn fx:id="statusColumn" text="Status" prefWidth="100"/>
+                                    <TableColumn fx:id="idColumn" text="ID" prefWidth="80"/>
+                                    <TableColumn fx:id="nameColumn" text="Name" prefWidth="200"/>
+                                    <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="250"/>
+                                    <TableColumn fx:id="categoryColumn" text="Category" prefWidth="120"/>
+                                    <TableColumn fx:id="companyColumn" text="Company" prefWidth="150"/>
+                                    <TableColumn fx:id="priceColumn" text="Price" prefWidth="100"/>
+                                    <TableColumn fx:id="stockColumn" text="Stock" prefWidth="100"/>
+                                </columns>
+                            </TableView>
+                        </ScrollPane>
+                    </VBox>
+
+                </VBox>
+            </center>
+
+        </BorderPane>
+    </content>
+</ScrollPane>

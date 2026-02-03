@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.cell.CheckBoxTableCell?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.database.Payment.PaymentPlanController"
+            style="-fx-background-color: #0f172a;">
+
+    <stylesheets>
+        <URL value="@dark-table.css"/>
+    </stylesheets>
+
+    <!-- ===== TOP BAR (SEARCH) ===== -->
+    <top>
+        <HBox spacing="12"
+              style="-fx-background-color: #020617; -fx-border-color: #1e293b; -fx-border-width: 0 0 1 0;">
+            <padding>
+                <Insets bottom="14" left="18" right="18" top="14" />
+            </padding>
+
+            <Label text="PAYMENT PLANS"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #f8fafc;" />
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <ComboBox fx:id="searchByCombo" prefWidth="220"
+                      style="-fx-background-color: white;
+                             -fx-border-color: #1e293b;
+                             -fx-border-radius: 6;
+                             -fx-background-radius: 6;" />
+
+            <TextField fx:id="searchField" prefWidth="260" promptText="Search..."
+                       style="-fx-background-color: rgba(255,255,255,0.92);
+                              -fx-text-fill: #0f172a;
+                              -fx-prompt-text-fill: rgba(15,23,42,0.55);
+                              -fx-border-color: #1e293b;
+                              -fx-border-radius: 6;
+                              -fx-background-radius: 6;" />
+
+            <Button onAction="#onSearch" text="Search"
+                    style="-fx-background-color: #2563eb;
+                           -fx-text-fill: white;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 6;" />
+
+            <Button onAction="#onRefresh" text="Refresh"
+                    style="-fx-background-color: #334155;
+                           -fx-text-fill: #e5e7eb;
+                           -fx-background-radius: 6;" />
+        </HBox>
+    </top>
+
+    <!-- ===== CENTER ===== -->
+    <center>
+        <VBox spacing="16">
+            <padding>
+                <Insets bottom="16" left="18" right="18" top="16" />
+            </padding>
+
+            <!-- ===== FORM CARD ===== -->
+            <VBox spacing="14"
+                  style="-fx-background-color: #020617;
+                         -fx-border-color: #1e293b;
+                         -fx-border-radius: 12;
+                         -fx-background-radius: 12;">
+                <padding>
+                    <Insets bottom="18" left="18" right="18" top="18" />
+                </padding>
+
+                <Label text="Payment Plan Details"
+                       style="-fx-text-fill: #f8fafc; -fx-font-size: 16px; -fx-font-weight: bold;" />
+
+                <GridPane hgap="14" vgap="12">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="210" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+
+                    <!-- ID (hidden in INSERT mode by controller) -->
+                    <Label text="ID" style="-fx-text-fill: #94a3b8;"
+                           GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <TextField fx:id="idField" editable="false"
+                               style="-fx-control-inner-background: rgba(255,255,255,0.88);
+                                      -fx-background-color: rgba(255,255,255,0.88);
+                                      -fx-text-fill: #0f172a;
+                                      -fx-border-color: #1e293b;
+                                      -fx-border-radius: 6;
+                                      -fx-background-radius: 6;"
+                               GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                    <!-- Period in Months (NOT NULL) -->
+                    <TextFlow GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Text text="Period in Months" style="-fx-fill: #94a3b8;" />
+                        <Text text=" *" style="-fx-fill: #ef4444; -fx-font-weight: bold;" />
+                    </TextFlow>
+                    <TextField fx:id="periodInMonthsField" promptText="e.g., 12"
+                               style="-fx-control-inner-background: rgba(255,255,255,0.92);
+                                      -fx-background-color: rgba(255,255,255,0.92);
+                                      -fx-text-fill: #0f172a;
+                                      -fx-prompt-text-fill: rgba(15,23,42,0.55);
+                                      -fx-border-color: #1e293b;
+                                      -fx-border-radius: 6;
+                                      -fx-background-radius: 6;"
+                               GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                    <!-- Months Before Legal Trial (nullable) -->
+                    <Label text="Months Before Legal Trial"
+                           style="-fx-text-fill: #94a3b8;"
+                           GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <TextField fx:id="monthsBeforeLegalTrialField" promptText="e.g., 36"
+                               style="-fx-control-inner-background: rgba(255,255,255,0.92);
+                                      -fx-background-color: rgba(255,255,255,0.92);
+                                      -fx-text-fill: #0f172a;
+                                      -fx-prompt-text-fill: rgba(15,23,42,0.55);
+                                      -fx-border-color: #1e293b;
+                                      -fx-border-radius: 6;
+                                      -fx-background-radius: 6;"
+                               GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                    <!-- Description (nullable) -->
+                    <Label text="Description"
+                           style="-fx-text-fill: #94a3b8;"
+                           GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                    <TextField fx:id="descriptionField" promptText="Short description..."
+                               style="-fx-control-inner-background: rgba(255,255,255,0.92);
+                                      -fx-background-color: rgba(255,255,255,0.92);
+                                      -fx-text-fill: #0f172a;
+                                      -fx-prompt-text-fill: rgba(15,23,42,0.55);
+                                      -fx-border-color: #1e293b;
+                                      -fx-border-radius: 6;
+                                      -fx-background-radius: 6;"
+                               GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                    <!-- Status Checkbox -->
+                    <Label text="Status" style="-fx-text-fill: #94a3b8;"
+                           GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                    <CheckBox fx:id="isDisabledCheckBox" text="Disable"
+                              style="-fx-text-fill: #e5e7eb;"
+                              GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                </GridPane>
+
+                <!-- ===== ACTIONS ROW ===== -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Button text="INSERT" onAction="#onInsert"
+                            style="-fx-background-color: #16a34a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" />
+
+                    <Button text="UPDATE" onAction="#onUpdate"
+                            style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" />
+
+                    <Button text="CLEAR" onAction="#onClear"
+                            style="-fx-background-color: #334155; -fx-text-fill: #e5e7eb; -fx-font-weight: bold; -fx-background-radius: 8;" />
+
+                    <Button fx:id="confirmButton" text="CONFIRM" onAction="#onConfirm"
+                            style="-fx-background-color: #22c55e; -fx-text-fill: #052e16; -fx-font-weight: bold; -fx-background-radius: 8;" />
+
+                    <Button fx:id="cancelButton" text="CANCEL" onAction="#onCancel"
+                            style="-fx-background-color: #64748b; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" />
+
+                    <Region HBox.hgrow="ALWAYS" />
+
+                    <Label fx:id="statusLabel" style="-fx-text-fill: #38bdf8;" />
+                </HBox>
+            </VBox>
+
+            <!-- ===== TABLE CARD ===== -->
+            <VBox spacing="10"
+                  style="-fx-background-color: #020617;
+                         -fx-border-color: #1e293b;
+                         -fx-border-radius: 12;
+                         -fx-background-radius: 12;">
+                <padding>
+                    <Insets bottom="16" left="16" right="16" top="16" />
+                </padding>
+
+                <Label text="Payment Plans List"
+                       style="-fx-text-fill: #f8fafc; -fx-font-size: 16px; -fx-font-weight: bold;" />
+                <ScrollPane fitToWidth="true" hbarPolicy="AS_NEEDED" vbarPolicy="AS_NEEDED">
+                    <TableView fx:id="paymentPlanTable" prefHeight="380"
+                               style="-fx-background-color: #020617;
+                                      -fx-control-inner-background: #020617;
+                                      -fx-table-cell-border-color: #1e293b;
+                                      -fx-text-background-color: #e5e7eb;">
+                        <columns>
+                            <!-- Status CheckBox Column -->
+                            <TableColumn fx:id="statusColumn" text="Status" prefWidth="100">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="disabled"/>
+                                </cellValueFactory>
+                            </TableColumn>
+
+                            <TableColumn fx:id="idColumn" text="ID" prefWidth="100"/>
+                            <TableColumn fx:id="periodInMonthsColumn" text="Period (Months)" prefWidth="200"/>
+                            <TableColumn fx:id="monthsBeforeLegalTrialColumn" text="Before Trial (Months)" prefWidth="250"/>
+                            <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="500"/>
+                        </columns>
+                    </TableView>
+                </ScrollPane>
+            </VBox>
+
+        </VBox>
+    </center>
+</BorderPane>

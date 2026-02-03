@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="520.0" prefWidth="920.0" style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.database.LoginController">
+
+    <center>
+        <HBox alignment="CENTER" spacing="28" BorderPane.alignment="CENTER">
+            <padding><Insets bottom="40" left="40" right="40" top="40" /></padding>
+
+            <!-- LEFT: BRAND -->
+            <VBox alignment="CENTER_LEFT" prefHeight="500.0" prefWidth="420.0" spacing="14" style="-fx-background-color:#020617; -fx-border-color:#1e293b; -fx-border-radius:16; -fx-background-radius:16;">
+                <padding><Insets bottom="26" left="26" right="26" top="26" /></padding>
+
+                <VBox spacing="2">
+                    <Label style="-fx-text-fill:#f8fafc; -fx-font-size:20px; -fx-font-weight:900;" text="Book Store" />
+                    <Label style="-fx-text-fill:#94a3b8; -fx-font-size:12px;" text="Welcome back — sign in to continue" />
+                </VBox>
+
+                <ImageView fitHeight="232.0" fitWidth="392.0" preserveRatio="true">
+                    <Image url="@Images/Login_Image2.png" />
+                </ImageView>
+
+                <Label maxWidth="1.7976931348623157E308" style="-fx-text-fill:#cbd5e1; -fx-font-size:13px;" text="Look for your favourite books" textAlignment="CENTER" wrapText="true" />
+            </VBox>
+
+            <!-- RIGHT: FORM -->
+            <VBox alignment="CENTER_LEFT" prefHeight="500.0" prefWidth="420.0" spacing="14" style="-fx-background-color:#020617; -fx-border-color:#1e293b; -fx-border-radius:16; -fx-background-radius:16;">
+                <padding><Insets bottom="28" left="28" right="28" top="28" /></padding>
+
+                <VBox spacing="4">
+                    <Label style="-fx-text-fill:#f8fafc; -fx-font-size:22px; -fx-font-weight:900;" text="Sign in" />
+                    <Label style="-fx-text-fill:#94a3b8; -fx-font-size:12px;" text="Enter your details to continue" />
+                </VBox>
+
+                <VBox spacing="8">
+                    <Label style="-fx-text-fill:#94a3b8; -fx-font-weight:800;" text="Email" />
+                    <TextField fx:id="emailField" promptText="name@example.com" style="-fx-background-color:#020617; -fx-text-fill:#e5e7eb; -fx-prompt-text-fill:#64748b;                                       -fx-border-color:#1e293b; -fx-border-radius:8; -fx-background-radius:8;                                       -fx-padding:10 12;" />
+                </VBox>
+
+                <VBox spacing="8">
+                    <Label style="-fx-text-fill:#94a3b8; -fx-font-weight:800;" text="Password" />
+                    <PasswordField fx:id="passwordField" promptText="••••••••" style="-fx-background-color:#020617; -fx-text-fill:#e5e7eb; -fx-prompt-text-fill:#64748b;                                           -fx-border-color:#1e293b; -fx-border-radius:8; -fx-background-radius:8;                                           -fx-padding:10 12;" />
+                </VBox>
+
+                <Button maxWidth="1.7976931348623157E308" onAction="#onLogin" style="-fx-background-color:#2563eb; -fx-text-fill:white; -fx-font-weight:900;                                -fx-background-radius:10; -fx-padding:11 14;" text="Sign in" />
+
+                <Button maxWidth="1.7976931348623157E308" onAction="#onGoRegister" style="-fx-background-color:#334155; -fx-text-fill:#e5e7eb; -fx-font-weight:900;                                -fx-background-radius:10; -fx-padding:11 14;" text="Create account" />
+
+                <Label fx:id="statusLabel" style="-fx-text-fill:#38bdf8; -fx-font-size:12px;" />
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>

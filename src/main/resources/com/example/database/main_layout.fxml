@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.database.DashBoard.MainController">
+    <stylesheets>
+        <URL value="@app-shell.css" />
+        <URL value="@dark-table.css" />
+        <URL value="@dashboard.css" />
+    </stylesheets>
+
+    <left>
+        <VBox prefWidth="240" spacing="10" styleClass="sidebar">
+            <padding>
+                <Insets bottom="16" left="16" right="16" top="18" />
+            </padding>
+
+            <VBox spacing="2">
+                <Label styleClass="brand-title" text="Book Store" />
+                <Label styleClass="brand-sub" text="Admin Panel" />
+            </VBox>
+
+            <Separator opacity="0.25" />
+
+            <VBox spacing="6">
+                <Label styleClass="nav-group-title" text="MAIN" />
+                <ToggleButton fx:id="navDashboard" styleClass="nav-btn" text="Dashboard" maxWidth="Infinity">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="navGroup" />
+                    </toggleGroup>
+                </ToggleButton>
+                <ToggleButton fx:id="navCustomers" styleClass="nav-btn" text="Customers" toggleGroup="$navGroup" maxWidth="Infinity"/>
+                <ToggleButton fx:id="navOrders" styleClass="nav-btn" text="Orders" toggleGroup="$navGroup" maxWidth="Infinity"/>
+                <ToggleButton fx:id="navProducts" styleClass="nav-btn" text="Products" toggleGroup="$navGroup" maxWidth="Infinity"/>
+                <ToggleButton fx:id="navWarehouses" styleClass="nav-btn" text="Warehouses" toggleGroup="$navGroup" maxWidth="Infinity"/>
+                <ToggleButton fx:id="navPaymentPlans" styleClass="nav-btn" text="Payment Plans" toggleGroup="$navGroup" maxWidth="Infinity"/>
+                <ToggleButton fx:id="navPaymentMethods" styleClass="nav-btn" text="Payment Methods" toggleGroup="$navGroup" maxWidth="Infinity"/>
+                <ToggleButton fx:id="navStaff" styleClass="nav-btn" text="Staff" toggleGroup="$navGroup" maxWidth="Infinity"/>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS" />
+            <Separator opacity="0.25" />
+
+            <VBox spacing="8">
+                <Label styleClass="nav-group-title" text="SYSTEM" />
+                <Button maxWidth="Infinity" onAction="#onRefreshCurrent" styleClass="btn-muted" text="Refresh current page" />
+            </VBox>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="0">
+            <HBox alignment="CENTER_LEFT" spacing="12" styleClass="topbar">
+                <padding>
+                    <Insets bottom="14" left="20" right="20" top="14" />
+                </padding>
+
+                <VBox spacing="2">
+                    <Label fx:id="pageTitleLabel" styleClass="page-title" text="Dashboard" />
+                    <Label fx:id="pageSubLabel" styleClass="page-sub" text="Overview of your system" />
+                </VBox>
+
+                <Region HBox.hgrow="ALWAYS" /> <Label fx:id="globalStatusLabel" styleClass="status-pill" text="" />
+
+                <Label fx:id="usernameLabel" style="-fx-background-color: #1e293b; -fx-padding: 8 15; -fx-text-fill: white; -fx-background-radius: 20;" text="Admin" />
+
+                <Button onAction="#onLogout" style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 8 15; -fx-cursor: hand;" text="Logout" />
+            </HBox>
+
+            <StackPane fx:id="contentPane" VBox.vgrow="ALWAYS" styleClass="content-area"></StackPane>
+        </VBox>
+    </center>
+</BorderPane>
