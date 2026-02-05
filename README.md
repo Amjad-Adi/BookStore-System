@@ -1,3 +1,4 @@
+### **Please refer to the video or install the JAR file to gain a better understanding of the program's structure and its compatibility.**
 
 ### **Database Architecture**
 
@@ -376,9 +377,4 @@ For inquiries, suggestions, or collaboration opportunities:
 ---
 
 <div align="center">
-
-**Built with ❤️ for the community by Birzeit University students**
-
-[⬆ Back to Top](#-bookstore-management-system)
-
 </div>
