@@ -169,47 +169,6 @@ Password: pass123
 - Update stock quantities
 - Generate inventory reports
 
----
-
-## 📊 Sample Queries
-
-```sql
--- Revenue Analysis
-SELECT SUM(ti.Quantity * ti.Price_At_Time) as Total_Revenue
-FROM Transaction_Items ti
-JOIN Product p ON ti.Product_ID = p.Product_ID
-WHERE p.Product_Category = 'Book';
-
--- Popular Products
-SELECT p.Product_Name, COUNT(ti.Transaction_ID) as Order_Count
-FROM Product p
-JOIN Transaction_Items ti ON p.Product_ID = ti.Product_ID
-GROUP BY p.Product_ID
-ORDER BY Order_Count DESC;
-
--- Customer Budget Analysis
-SELECT Customer_Profession, AVG(Budget_In_Dollars) as Avg_Budget
-FROM Customers
-WHERE Disabled_Customer = FALSE
-GROUP BY Customer_Profession;
-
--- Warehouse Capacity Utilization
-SELECT Warehouse_Name,
-       (Warehouse_Current_Storage / Warehouse_Max_Storage * 100) as Fill_Percentage
-FROM Warehouse
-ORDER BY Fill_Percentage DESC;
-
--- Late Rentals
-SELECT r.Transaction_ID, c.Customer_First_Name, c.Customer_Second_Name,
-       r.Rental_End_Date, DATEDIFF(NOW(), r.Rental_End_Date) as Days_Late
-FROM Rental r
-JOIN Transaction t ON r.Transaction_ID = t.Transaction_ID
-JOIN Customers c ON t.Customer_ID = c.Customer_Id
-WHERE r.Rental_Status = 'Late' AND r.Return_Date IS NULL;
-```
-
----
-
 ## 🎓 Academic Contribution
 
 This project was developed as part of the **COMP333** course at Birzeit University, demonstrating:
@@ -269,8 +228,8 @@ BookStore_System/
 
 ## 🔒 Security Features
 
-- **Password Encryption:** AES-256 CBC mode with customizable keys and initialization vectors
-- **Hashing Support:** SHA-256 for secure password hashing, MD5 for legacy support
+- **Password Encryption:** AES-128 CBC mode with customizable keys and initialization vectors
+- **Hashing Support:** SHA-128 for secure password hashing, MD5 for legacy support
 - **Session Security:** Encrypted session credentials, timeout management
 - **SQL Injection Prevention:** Parameterized queries using PreparedStatements
 - **Role-Based Access:** Enforced privileges at application and database layers
