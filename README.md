@@ -2,7 +2,7 @@
 
 ### **Database Architecture**
 
-**Entities (15+ tables):**
+**Entities:**
 - `Customers` - Customer profiles and account information
 - `Staff` - Employee records and credentials
 - `Admin` / `Worker` - Specialized staff roles
