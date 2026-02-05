@@ -1,4 +1,8 @@
 ### **Please refer to the video or install the JAR file to gain a better understanding of the program's structure and its compatibility.**
+### **The JAR file is located in the listed files above, meanwhile the video is located in:**
+
+## Video Link
+You can access the Video here: [Google Drive File](https://drive.google.com/file/d/1W9MYGRgI_fHh_EXF6JnLwUUXAe6z-7SF/view?usp=sharing)
 
 ### **Database Architecture**
 
