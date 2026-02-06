@@ -7,8 +7,8 @@ import java.sql.*;
 public class DBConnection {
 
     private static final String URL="jdbc:mysql://localhost:3306/Book_Store?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-    private static final String USER = "root";
-    private static final String PASSWORD = "damja1500BZU#";
+    private static final String USER = "SomeUser";
+    private static final String PASSWORD = "SomePassword";
     public static String id = "1230800";
     private DBConnection() { }
 
@@ -25,6 +25,7 @@ public class DBConnection {
         a.showAndWait();
     }
 }
+
 
 
 
