@@ -3,6 +3,7 @@
 
 ## Video Link
 You can access the Video here: [Google Drive File](https://drive.google.com/file/d/1W9MYGRgI_fHh_EXF6JnLwUUXAe6z-7SF/view?usp=sharing)
+<img width="1007" height="45" alt="image" src="https://github.com/user-attachments/assets/f6d6a431-da6b-4b31-aebf-d47cbfb595cc" />
 
 ### **Database Architecture**
 
