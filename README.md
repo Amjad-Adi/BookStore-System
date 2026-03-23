@@ -1,3 +1,5 @@
+## **Please Refer to the video below for a showcase of the project asbects.**
+https://drive.google.com/file/d/1O35A-XZOiEvcS93qbVCoaOM5x_6ATAQc/view?usp=drive_link
 ## :)
 <img width="1007" height="45" alt="image" src="https://github.com/user-attachments/assets/f6d6a431-da6b-4b31-aebf-d47cbfb595cc" />
 
