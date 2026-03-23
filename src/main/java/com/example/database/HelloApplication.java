@@ -15,9 +15,10 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws Exception {
         SceneManager.setStage(stage);
 
-        URL loginUrl = ResourceHelper.fxml("login.fxml");
+        URL loginUrl = ResourceHelper.fxml("customer_page_1.fxml");
         FXMLLoader loader = new FXMLLoader(loginUrl);
         Scene scene = new Scene(loader.load());
+        stage.setMaximized(true);
         stage.setTitle("The Book Store");
         try {
             stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/database/Images/Icon.png"))));

@@ -19,6 +19,7 @@ public class OrderItem {
         this.transactionItemId = transactionItemId;
         this.transactionId = transactionId;
         this.productId = productId;
+        this.productName = productName;
         this.quantity = quantity;
         this.priceAtTime = priceAtTime;
         this.isDisabled = isDisabled;

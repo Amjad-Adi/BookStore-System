@@ -22,6 +22,7 @@ public class CustomerController {
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
     @FXML private TextField emailField;
+    @FXML private TextField passwordField;
     @FXML private ComboBox<String> professionComboBox;
     @FXML private DatePicker birthDatePicker;
     @FXML private DatePicker registerDatePicker;
@@ -31,7 +32,7 @@ public class CustomerController {
     @FXML private CheckBox isDisabledCheckBox;
     @FXML private Button confirmBtn;
     @FXML private Button cancelBtn;
-
+    @FXML private Label passwordLabel;
     @FXML private TableView<Customer> customersTable;
     @FXML private TableColumn<Customer, Integer> id;
     @FXML private TableColumn<Customer, String> firstName;
@@ -156,23 +157,7 @@ public class CustomerController {
         });
         registerDatePicker.setValue(LocalDate.now());
         customersTable.setMinWidth(1500);
-        customersTable.setPrefHeight(400);
         customersTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        statusColumn.setPrefWidth(100);
-        id.setPrefWidth(100);
-        firstName.setPrefWidth(150);
-        secondName.setPrefWidth(150);
-        email.setPrefWidth(200);
-        profession.setPrefWidth(150);
-        birthDate.setPrefWidth(90);
-        registerDate.setPrefWidth(90);
-        activationDate.setPrefWidth(90);
-        expirationDate.setPrefWidth(90);
-        budget.setPrefWidth(80);
-
-
-
-
         customersTable.skinProperty().addListener((obs, o, n) ->
                 customersTable.lookupAll(".column-header .label").forEach(
                         node -> node.setStyle("-fx-text-fill: #e5e7eb; -fx-font-weight: bold;")
@@ -255,9 +240,6 @@ public class CustomerController {
                 });
             }
         });
-        customersTable.setMinWidth(1500);
-        customersTable.setPrefHeight(380);
-        customersTable.setMinHeight(380);
         customersTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         searchByCombo.setItems(observableArrayList(
                 "ID", "First Name", "Last Name", "Email", "Profession", "Active", "Expired"
@@ -343,6 +325,11 @@ public class CustomerController {
 
     private void setMode(Mode mode) {
         this.mode = mode;
+        passwordField.setEditable(mode==Mode.INSERT);
+        passwordField.setVisible(mode==Mode.INSERT);
+        passwordField.setManaged(mode==Mode.INSERT);
+        passwordLabel.setVisible(mode==Mode.INSERT);
+        passwordField.setManaged(mode==Mode.INSERT);
         ChangeFieldsMode(!(mode == Mode.VIEW));
         confirmBtn.setVisible(!(mode == Mode.VIEW));
         confirmBtn.setManaged(!(mode == Mode.VIEW));
@@ -377,7 +364,6 @@ public class CustomerController {
 
         firstNameField.setEditable(editable);
         firstNameField.setStyle(currentStyle);
-
         lastNameField.setEditable(editable);
         lastNameField.setStyle(currentStyle);
 
@@ -457,15 +443,24 @@ public class CustomerController {
                 statusLabel.setText("First name is required.");
                 return;
             }
-
+            else if (lastNameField.getText() == null || lastNameField.getText().trim().isEmpty()) {
+                statusLabel.setText("First name is required.");
+                return;
+            }
+            else if (emailField.getText() == null || emailField.getText().trim().isEmpty()) {
+                statusLabel.setText("First name is required.");
+                return;
+            }
+            else if (passwordField.getText() == null || passwordField.getText().trim().isEmpty()) {
+                statusLabel.setText("First name is required.");
+                return;
+            }
             Customer newCustomer = new Customer(
                     0,
                     firstNameField.getText().trim(),
-                    lastNameField.getText() == null || lastNameField.getText().trim().isEmpty()
-                            ? null : lastNameField.getText().trim(),
-                    emailField.getText() == null || emailField.getText().trim().isEmpty()
-                            ? null : emailField.getText().trim(),
-                    null,
+                    lastNameField.getText().trim(),
+                    emailField.getText().trim(),
+                    passwordField.getText(),
                     professionComboBox.getValue() == null ? "Other" : professionComboBox.getValue(),
                     birthDatePicker.getValue(),
                     registerDatePicker.getValue(),
@@ -608,6 +603,7 @@ public class CustomerController {
         firstNameField.clear();
         lastNameField.clear();
         emailField.clear();
+        passwordField.clear();
         professionComboBox.setValue(null);
         birthDatePicker.setValue(null);
         registerDatePicker.setValue(null);

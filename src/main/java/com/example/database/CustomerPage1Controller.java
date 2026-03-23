@@ -203,7 +203,7 @@ public class CustomerPage1Controller implements Initializable {
         HBox qtyBox = new HBox(8);
         qtyBox.setAlignment(Pos.CENTER_LEFT);
 
-        Label qtyLabel = new Label("Qty:");
+        Label qtyLabel = new Label("Quantity:");
         qtyLabel.setStyle("-fx-text-fill: #64748b; -fx-font-size: 12px; -fx-font-weight: bold;");
 
         Spinner<Integer> qty = new Spinner<>(1, Math.max(1, p.getStock()), 1);

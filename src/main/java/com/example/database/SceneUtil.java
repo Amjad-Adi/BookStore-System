@@ -16,7 +16,7 @@ public class SceneUtil {
     private SceneUtil() {}
 
     private static double normalW = 1500;
-    private static double normalH = 900;
+    private static double normalH = 800;
 
     private static boolean listenersInstalled = false;
 
@@ -56,9 +56,8 @@ public class SceneUtil {
 
             Parent root = load(fxmlName);
             stage.setTitle(title);
-            stage.setScene(new Scene(root));
-
-            applyNormalSizeIfNotFullscreen(stage);
+            stage.getScene().setRoot(root);
+            stage.setMaximized(true);
             stage.show();
         } catch (Exception e) {
             showError("Navigation Error", "Failed to switch to: " + fxmlName + "\n\n" + e.getMessage());
@@ -72,9 +71,7 @@ public class SceneUtil {
             installSizeMemory(stage);
 
             Parent root = load(fxmlName);
-            stage.setScene(new Scene(root));
-
-            applyNormalSizeIfNotFullscreen(stage);
+            stage.getScene().setRoot(root);
             stage.show();
         } catch (Exception e) {
             showError("Navigation Error", "Failed to switch to: " + fxmlName + "\n\n" + e.getMessage());
@@ -140,16 +137,6 @@ public class SceneUtil {
         });
     }
 
-
-    private static void applyNormalSizeIfNotFullscreen(Stage stage) {
-        if (stage.isFullScreen() || stage.isMaximized()) return;
-
-        stage.setWidth(normalW);
-        stage.setHeight(normalH);
-
-        stage.setMinWidth(1100);
-        stage.setMinHeight(700);
-    }
 
 
     private static void showError(String title, String message) {

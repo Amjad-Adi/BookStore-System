@@ -1,58 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import java.net.URL?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.control.cell.CheckBoxTableCell?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.database.Customer.CustomerController"
-            style="-fx-background-color: #0f172a;">
+<BorderPane style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.database.Customer.CustomerController">
 
     <stylesheets>
-        <URL value="@dark-table.css"/>
+        <URL value="@dark-table.css" />
     </stylesheets>
 
     <!-- ===== TOP BAR (SEARCH) ===== -->
     <top>
-        <HBox spacing="12"
-              style="-fx-background-color: #020617; -fx-border-color: #1e293b; -fx-border-width: 0 0 1 0;">
+        <HBox spacing="12" style="-fx-background-color: #020617; -fx-border-color: #1e293b; -fx-border-width: 0 0 1 0;">
             <padding>
                 <Insets bottom="14" left="18" right="18" top="14" />
             </padding>
 
-            <Label text="CUSTOMERS"
-                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #f8fafc;" />
+            <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #f8fafc;" text="CUSTOMERS" />
 
             <Region HBox.hgrow="ALWAYS" />
 
-            <ComboBox fx:id="searchByCombo" prefWidth="220"
-                      style="-fx-background-color: white;
-                             -fx-border-color: #1e293b;
-                             -fx-border-radius: 6;
-                             -fx-background-radius: 6;" />
+            <ComboBox fx:id="searchByCombo" prefWidth="220" style="-fx-background-color: white;                              -fx-border-color: #1e293b;                              -fx-border-radius: 6;                              -fx-background-radius: 6;" />
 
-            <TextField fx:id="searchField" prefWidth="260" promptText="Search..."
-                       style="-fx-background-color: rgba(255,255,255,0.92);
-                              -fx-text-fill: #0f172a;
-                              -fx-prompt-text-fill: rgba(15,23,42,0.55);
-                              -fx-border-color: #1e293b;
-                              -fx-border-radius: 6;
-                              -fx-background-radius: 6;" />
+            <TextField fx:id="searchField" prefWidth="260" promptText="Search..." style="-fx-background-color: rgba(255,255,255,0.92);                               -fx-text-fill: #0f172a;                               -fx-prompt-text-fill: rgba(15,23,42,0.55);                               -fx-border-color: #1e293b;                               -fx-border-radius: 6;                               -fx-background-radius: 6;" />
 
-            <Button onAction="#onSearch" text="Search"
-                    style="-fx-background-color: #2563eb;
-                           -fx-text-fill: white;
-                           -fx-font-weight: bold;
-                           -fx-background-radius: 6;" />
+            <Button onAction="#onSearch" style="-fx-background-color: #2563eb;                            -fx-text-fill: white;                            -fx-font-weight: bold;                            -fx-background-radius: 6;" text="Search" />
 
-            <Button onAction="#onRefresh" text="Refresh"
-                    style="-fx-background-color: #334155;
-                           -fx-text-fill: #e5e7eb;
-                           -fx-background-radius: 6;" />
+            <Button onAction="#onRefresh" style="-fx-background-color: #334155;                            -fx-text-fill: #e5e7eb;                            -fx-background-radius: 6;" text="Refresh" />
         </HBox>
     </top>
 
@@ -64,17 +41,12 @@
             </padding>
 
             <!-- ===== FORM CARD ===== -->
-            <VBox spacing="14"
-                  style="-fx-background-color: #020617;
-                         -fx-border-color: #1e293b;
-                         -fx-border-radius: 12;
-                         -fx-background-radius: 12;">
+            <VBox spacing="14" style="-fx-background-color: #020617;                          -fx-border-color: #1e293b;                          -fx-border-radius: 12;                          -fx-background-radius: 12;">
                 <padding>
                     <Insets bottom="18" left="18" right="18" top="18" />
                 </padding>
 
-                <Label text="Customer Details"
-                       style="-fx-text-fill: #f8fafc; -fx-font-size: 16px; -fx-font-weight: bold;" />
+                <Label style="-fx-text-fill: #f8fafc; -fx-font-size: 16px; -fx-font-weight: bold;" text="Customer Details" />
 
                 <GridPane hgap="20" vgap="12">
                     <columnConstraints>
@@ -91,160 +63,74 @@
                     <!-- ===== LEFT COLUMN ===== -->
 
                     <!-- ID Field -->
-                    <Label text="ID" style="-fx-text-fill: #94a3b8;"
-                           GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                    <TextField fx:id="idField" editable="false"
-                               style="-fx-control-inner-background: rgba(255,255,255,0.88);
-                                      -fx-background-color: rgba(255,255,255,0.88);
-                                      -fx-text-fill: #0f172a;
-                                      -fx-border-color: #1e293b;
-                                      -fx-border-radius: 6;
-                                      -fx-background-radius: 6;"
-                               GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                    <Label style="-fx-text-fill: #94a3b8;" text="ID" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <TextField fx:id="idField" editable="false" style="-fx-control-inner-background: rgba(255,255,255,0.88);                                       -fx-background-color: rgba(255,255,255,0.88);                                       -fx-text-fill: #0f172a;                                       -fx-border-color: #1e293b;                                       -fx-border-radius: 6;                                       -fx-background-radius: 6;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
                     <!-- First Name Field -->
-                    <Label text="First Name" style="-fx-text-fill: #94a3b8;"
-                           GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                    <TextField fx:id="firstNameField" promptText="Enter first name..."
-                               style="-fx-control-inner-background: rgba(255,255,255,0.92);
-                                      -fx-background-color: rgba(255,255,255,0.92);
-                                      -fx-text-fill: #0f172a;
-                                      -fx-prompt-text-fill: rgba(15,23,42,0.55);
-                                      -fx-border-color: #1e293b;
-                                      -fx-border-radius: 6;
-                                      -fx-background-radius: 6;"
-                               GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <Label style="-fx-text-fill: #94a3b8;" text="First Name" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <TextField fx:id="firstNameField" promptText="Enter first name..." style="-fx-control-inner-background: rgba(255,255,255,0.92);                                       -fx-background-color: rgba(255,255,255,0.92);                                       -fx-text-fill: #0f172a;                                       -fx-prompt-text-fill: rgba(15,23,42,0.55);                                       -fx-border-color: #1e293b;                                       -fx-border-radius: 6;                                       -fx-background-radius: 6;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
                     <!-- Last Name Field -->
-                    <Label text="Last Name" style="-fx-text-fill: #94a3b8;"
-                           GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                    <TextField fx:id="lastNameField" promptText="Enter last name..."
-                               style="-fx-control-inner-background: rgba(255,255,255,0.92);
-                                      -fx-background-color: rgba(255,255,255,0.92);
-                                      -fx-text-fill: #0f172a;
-                                      -fx-prompt-text-fill: rgba(15,23,42,0.55);
-                                      -fx-border-color: #1e293b;
-                                      -fx-border-radius: 6;
-                                      -fx-background-radius: 6;"
-                               GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <Label style="-fx-text-fill: #94a3b8;" text="Last Name" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <TextField fx:id="lastNameField" promptText="Enter last name..." style="-fx-control-inner-background: rgba(255,255,255,0.92);                                       -fx-background-color: rgba(255,255,255,0.92);                                       -fx-text-fill: #0f172a;                                       -fx-prompt-text-fill: rgba(15,23,42,0.55);                                       -fx-border-color: #1e293b;                                       -fx-border-radius: 6;                                       -fx-background-radius: 6;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
                     <!-- Email Field -->
-                    <Label text="Email" style="-fx-text-fill: #94a3b8;"
-                           GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-                    <TextField fx:id="emailField" promptText="customer@example.com"
-                               style="-fx-control-inner-background: rgba(255,255,255,0.92);
-                                      -fx-background-color: rgba(255,255,255,0.92);
-                                      -fx-text-fill: #0f172a;
-                                      -fx-prompt-text-fill: rgba(15,23,42,0.55);
-                                      -fx-border-color: #1e293b;
-                                      -fx-border-radius: 6;
-                                      -fx-background-radius: 6;"
-                               GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                    <Label style="-fx-text-fill: #94a3b8;" text="Email" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                    <TextField fx:id="emailField" promptText="customer@example.com" style="-fx-control-inner-background: rgba(255,255,255,0.92);                                       -fx-background-color: rgba(255,255,255,0.92);                                       -fx-text-fill: #0f172a;                                       -fx-prompt-text-fill: rgba(15,23,42,0.55);                                       -fx-border-color: #1e293b;                                       -fx-border-radius: 6;                                       -fx-background-radius: 6;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
                     <!-- Profession Field -->
-                    <Label text="Profession" style="-fx-text-fill: #94a3b8;"
-                           GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                    <Label style="-fx-text-fill: #94a3b8;" text="Profession" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                     <!-- Profession Field -->
-                    <Label text="Profession" style="-fx-text-fill: #94a3b8;"
-                           GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-                    <ComboBox fx:id="professionComboBox" promptText="Select profession..."
-                              style="-fx-background-color: rgba(255,255,255,0.92);
-                 -fx-border-color: #1e293b;
-                 -fx-border-radius: 6;
-                 -fx-background-radius: 6;"
-                              GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                    <Label style="-fx-text-fill: #94a3b8;" text="Profession" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                    <ComboBox fx:id="professionComboBox" promptText="Select profession..." style="-fx-background-color: rgba(255,255,255,0.92);                  -fx-border-color: #1e293b;                  -fx-border-radius: 6;                  -fx-background-radius: 6;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
                     <!-- Budget Field -->
-                    <Label text="Budget" style="-fx-text-fill: #94a3b8;"
-                           GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-                    <TextField fx:id="budgetField" promptText="e.g., 1000.00"
-                               style="-fx-control-inner-background: rgba(255,255,255,0.92);
-                                      -fx-background-color: rgba(255,255,255,0.92);
-                                      -fx-text-fill: #0f172a;
-                                      -fx-prompt-text-fill: rgba(15,23,42,0.55);
-                                      -fx-border-color: #1e293b;
-                                      -fx-border-radius: 6;
-                                      -fx-background-radius: 6;"
-                               GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                    <Label style="-fx-text-fill: #94a3b8;" text="Budget" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                    <TextField fx:id="budgetField" promptText="e.g., 1000.00" style="-fx-control-inner-background: rgba(255,255,255,0.92);                                       -fx-background-color: rgba(255,255,255,0.92);                                       -fx-text-fill: #0f172a;                                       -fx-prompt-text-fill: rgba(15,23,42,0.55);                                       -fx-border-color: #1e293b;                                       -fx-border-radius: 6;                                       -fx-background-radius: 6;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
                     <!-- ===== RIGHT COLUMN ===== -->
-
+                    <Label fx:id="passwordLabel" style="-fx-text-fill: #94a3b8;" text="Password" GridPane.columnIndex="2" GridPane.rowIndex="0" />
                     <!-- Birth Date Field -->
-                    <Label text="Birth Date" style="-fx-text-fill: #94a3b8;"
-                           GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-                    <DatePicker fx:id="birthDatePicker" promptText="Select birth date..."
-                                style="-fx-control-inner-background: rgba(255,255,255,0.92);
-                                       -fx-background-color: rgba(255,255,255,0.92);
-                                       -fx-text-fill: #0f172a;
-                                       -fx-prompt-text-fill: rgba(15,23,42,0.55);
-                                       -fx-border-color: #1e293b;
-                                       -fx-border-radius: 6;
-                                       -fx-background-radius: 6;"
-                                GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+                    <Label style="-fx-text-fill: #94a3b8;" text="Birth Date" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                    <DatePicker fx:id="birthDatePicker" promptText="Select birth date..." style="-fx-control-inner-background: rgba(255,255,255,0.92);                                        -fx-background-color: rgba(255,255,255,0.92);                                        -fx-text-fill: #0f172a;                                        -fx-prompt-text-fill: rgba(15,23,42,0.55);                                        -fx-border-color: #1e293b;                                        -fx-border-radius: 6;                                        -fx-background-radius: 6;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
 
                     <!-- Register Date Field -->
-                    <Label text="Register Date" style="-fx-text-fill: #94a3b8;"
-                           GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-                    <DatePicker fx:id="registerDatePicker" promptText="Select register date..."
-                                style="-fx-control-inner-background: rgba(255,255,255,0.92);
-                                       -fx-background-color: rgba(255,255,255,0.92);
-                                       -fx-text-fill: #0f172a;
-                                       -fx-prompt-text-fill: rgba(15,23,42,0.55);
-                                       -fx-border-color: #1e293b;
-                                       -fx-border-radius: 6;
-                                       -fx-background-radius: 6;"
-                                GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                    <Label style="-fx-text-fill: #94a3b8;" text="Register Date" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                    <DatePicker fx:id="registerDatePicker" promptText="Select register date..." style="-fx-control-inner-background: rgba(255,255,255,0.92);                                        -fx-background-color: rgba(255,255,255,0.92);                                        -fx-text-fill: #0f172a;                                        -fx-prompt-text-fill: rgba(15,23,42,0.55);                                        -fx-border-color: #1e293b;                                        -fx-border-radius: 6;                                        -fx-background-radius: 6;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
 
                     <!-- Activation Date Field -->
-                    <Label text="Activation Date" style="-fx-text-fill: #94a3b8;"
-                           GridPane.columnIndex="2" GridPane.rowIndex="2"/>
-                    <DatePicker fx:id="activationDatePicker" promptText="Select activation date..."
-                                style="-fx-control-inner-background: rgba(255,255,255,0.92);
-                                       -fx-background-color: rgba(255,255,255,0.92);
-                                       -fx-text-fill: #0f172a;
-                                       -fx-prompt-text-fill: rgba(15,23,42,0.55);
-                                       -fx-border-color: #1e293b;
-                                       -fx-border-radius: 6;
-                                       -fx-background-radius: 6;"
-                                GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+                    <Label style="-fx-text-fill: #94a3b8;" text="Activation Date" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                    <DatePicker fx:id="activationDatePicker" promptText="Select activation date..." style="-fx-control-inner-background: rgba(255,255,255,0.92);                                        -fx-background-color: rgba(255,255,255,0.92);                                        -fx-text-fill: #0f172a;                                        -fx-prompt-text-fill: rgba(15,23,42,0.55);                                        -fx-border-color: #1e293b;                                        -fx-border-radius: 6;                                        -fx-background-radius: 6;" GridPane.columnIndex="3" GridPane.rowIndex="3" />
 
                     <!-- Expiration Date Field -->
-                    <Label text="Expiration Date" style="-fx-text-fill: #94a3b8;"
-                           GridPane.columnIndex="2" GridPane.rowIndex="3"/>
-                    <DatePicker fx:id="expirationDatePicker" promptText="Select expiration date..."
-                                style="-fx-control-inner-background: rgba(255,255,255,0.92);
-                                       -fx-background-color: rgba(255,255,255,0.92);
-                                       -fx-text-fill: #0f172a;
-                                       -fx-prompt-text-fill: rgba(15,23,42,0.55);
-                                       -fx-border-color: #1e293b;
-                                       -fx-border-radius: 6;
-                                       -fx-background-radius: 6;"
-                                GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+                    <Label style="-fx-text-fill: #94a3b8;" text="Expiration Date" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                    <DatePicker fx:id="expirationDatePicker" promptText="Select expiration date..." style="-fx-control-inner-background: rgba(255,255,255,0.92);                                        -fx-background-color: rgba(255,255,255,0.92);                                        -fx-text-fill: #0f172a;                                        -fx-prompt-text-fill: rgba(15,23,42,0.55);                                        -fx-border-color: #1e293b;                                        -fx-border-radius: 6;                                        -fx-background-radius: 6;" GridPane.columnIndex="3" GridPane.rowIndex="4" />
 
                     <!-- Status Checkbox -->
-                    <Label text="Status" style="-fx-text-fill: #94a3b8;"
-                           GridPane.columnIndex="2" GridPane.rowIndex="4"/>
-                    <CheckBox fx:id="isDisabledCheckBox" text="Disable"
-                              style="-fx-text-fill: #e5e7eb;"
-                              GridPane.columnIndex="3" GridPane.rowIndex="4"/>
+                    <Label style="-fx-text-fill: #94a3b8;" text="Status" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                    <CheckBox fx:id="isDisabledCheckBox" style="-fx-text-fill: #e5e7eb;" text="Disable" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+               <PasswordField fx:id="passwordField" maxWidth="-Infinity" prefHeight="26.0" prefWidth="176.8" GridPane.columnIndex="3" />
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
                 </GridPane>
 
                 <!-- ===== ACTIONS ROW ===== -->
-                <HBox spacing="10" alignment="CENTER_LEFT">
-                    <Button text="INSERT" onAction="#onInsert"
-                            style="-fx-background-color: #16a34a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" />
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Button onAction="#onInsert" style="-fx-background-color: #16a34a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" text="INSERT" />
 
-                    <Button text="UPDATE" onAction="#onUpdate"
-                            style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" />
+                    <Button onAction="#onUpdate" style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" text="UPDATE" />
 
-                    <Button text="CLEAR" onAction="#onClear"
-                            style="-fx-background-color: #334155; -fx-text-fill: #e5e7eb; -fx-font-weight: bold; -fx-background-radius: 8;" />
+                    <Button onAction="#onClear" style="-fx-background-color: #334155; -fx-text-fill: #e5e7eb; -fx-font-weight: bold; -fx-background-radius: 8;" text="CLEAR" />
 
-                    <Button fx:id="confirmBtn" text="CONFIRM" onAction="#onConfirm"
-                            style="-fx-background-color: #22c55e; -fx-text-fill: #052e16; -fx-font-weight: bold; -fx-background-radius: 8;" />
+                    <Button fx:id="confirmBtn" onAction="#onConfirm" style="-fx-background-color: #22c55e; -fx-text-fill: #052e16; -fx-font-weight: bold; -fx-background-radius: 8;" text="CONFIRM" />
 
-                    <Button fx:id="cancelBtn" text="CANCEL" onAction="#onCancel"
-                            style="-fx-background-color: #64748b; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" />
+                    <Button fx:id="cancelBtn" onAction="#onCancel" style="-fx-background-color: #64748b; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" text="CANCEL" />
 
                     <Region HBox.hgrow="ALWAYS" />
 
@@ -253,41 +139,32 @@
             </VBox>
 
             <!-- ===== TABLE CARD ===== -->
-            <VBox spacing="10"
-                  style="-fx-background-color: #020617;
-                         -fx-border-color: #1e293b;
-                         -fx-border-radius: 12;
-                         -fx-background-radius: 12;">
+            <VBox spacing="10" style="-fx-background-color: #020617;                          -fx-border-color: #1e293b;                          -fx-border-radius: 12;                          -fx-background-radius: 12;">
                 <padding>
                     <Insets bottom="16" left="16" right="16" top="16" />
                 </padding>
 
-                <Label text="Customer List"
-                       style="-fx-text-fill: #f8fafc; -fx-font-size: 16px; -fx-font-weight: bold;" />
+                <Label style="-fx-text-fill: #f8fafc; -fx-font-size: 16px; -fx-font-weight: bold;" text="Customer List" />
                 <ScrollPane fitToWidth="true" hbarPolicy="AS_NEEDED" vbarPolicy="AS_NEEDED">
-                    <TableView fx:id="customersTable" prefHeight="380"
-                               style="-fx-background-color: #020617;
-                                      -fx-control-inner-background: #020617;
-                                      -fx-table-cell-border-color: #1e293b;
-                                      -fx-text-background-color: #e5e7eb;">
+                    <TableView fx:id="customersTable" prefHeight="380" style="-fx-background-color: #020617;                                       -fx-control-inner-background: #020617;                                       -fx-table-cell-border-color: #1e293b;                                       -fx-text-background-color: #e5e7eb;">
                         <columns>
                             <!-- Disabled CheckBox Column -->
-                            <TableColumn fx:id="statusColumn" text="Status" prefWidth="100">
+                            <TableColumn fx:id="statusColumn" prefWidth="100" text="Status">
                                 <cellValueFactory>
-                                    <PropertyValueFactory property="isDisabled"/>
+                                    <PropertyValueFactory property="isDisabled" />
                                 </cellValueFactory>
                             </TableColumn>
 
-                            <TableColumn fx:id="id" text="ID" prefWidth="100"/>
-                            <TableColumn fx:id="firstName" text="First Name" prefWidth="150"/>
-                            <TableColumn fx:id="secondName" text="Last Name" prefWidth="150"/>
-                            <TableColumn fx:id="email" text="Email" prefWidth="200"/>
-                            <TableColumn fx:id="profession" text="Profession" prefWidth="150"/>
-                            <TableColumn fx:id="birthDate" text="Birth" prefWidth="90"/>
-                            <TableColumn fx:id="registerDate" text="Reg" prefWidth="90"/>
-                            <TableColumn fx:id="activationDate" text="Active" prefWidth="90"/>
-                            <TableColumn fx:id="expirationDate" text="Expire" prefWidth="90"/>
-                            <TableColumn fx:id="budget" text="Budget" prefWidth="80"/>
+                            <TableColumn fx:id="id" prefWidth="100" text="ID" />
+                            <TableColumn fx:id="firstName" prefWidth="150" text="First Name" />
+                            <TableColumn fx:id="secondName" prefWidth="150" text="Last Name" />
+                            <TableColumn fx:id="email" prefWidth="200" text="Email" />
+                            <TableColumn fx:id="profession" prefWidth="150" text="Profession" />
+                            <TableColumn fx:id="birthDate" prefWidth="90" text="Birth" />
+                            <TableColumn fx:id="registerDate" prefWidth="90" text="Reg" />
+                            <TableColumn fx:id="activationDate" prefWidth="90" text="Active" />
+                            <TableColumn fx:id="expirationDate" prefWidth="90" text="Expire" />
+                            <TableColumn fx:id="budget" prefWidth="80" text="Budget" />
                         </columns>
                     </TableView>
                 </ScrollPane>

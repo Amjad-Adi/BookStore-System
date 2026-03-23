@@ -401,6 +401,7 @@ public class WarehouseController {
         currentInventoryItems.clear();
         currentContacts.clear();
         setMode(Mode.INSERT);
+        currentStorageField.setText("0");
         dateOfEstablishmentPicker.setValue(LocalDate.now());
         statusLabel.setText("INSERT mode: fill fields and add items, then CONFIRM.");
     }

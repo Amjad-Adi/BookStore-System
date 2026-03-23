@@ -165,32 +165,30 @@ public class WarehouseDAO {
             throw new RuntimeException("getWarehouseContacts failed: " + e.getMessage(), e);
         }
     }
-
     public static int insertWarehouseWithInventory(Warehouse warehouse, List<InventoryItem> items, List<WarehouseContact> contacts) {
         String sqlWarehouse = """
-            INSERT INTO Warehouse (
-                Warehouse_Name,
-                Warehouse_Address,
-                WarehouseDate_Of_Establishment,
-                Warehouse_Max_Storage,
-                Warehouse_Current_Storage,
-                Disabled_Warehouse
-            ) VALUES (?, ?, ?, ?, ?, ?)
-        """;
+        INSERT INTO Warehouse (
+            Warehouse_Name,
+            Warehouse_Address,
+            WarehouseDate_Of_Establishment,
+            Warehouse_Max_Storage,
+            Warehouse_Current_Storage,
+            Disabled_Warehouse
+        ) VALUES (?, ?, ?, ?, ?, ?)
+    """;
 
-        try (Connection con = DBConnection.getConnection()) {
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sqlWarehouse, Statement.RETURN_GENERATED_KEYS)) {
 
-            try (PreparedStatement ps = con.prepareStatement(sqlWarehouse, Statement.RETURN_GENERATED_KEYS)) {
-                ps.setString(1, warehouse.getName());
-                ps.setString(2, warehouse.getAddress());
-                ps.setDate(3, Date.valueOf(warehouse.getDateOfEstablishment()));
-                ps.setInt(4, warehouse.getMaxStorage());
-                ps.setInt(5, warehouse.getCurrentStorage());
-                ps.setBoolean(6, warehouse.isDisabled());
+            ps.setString(1, warehouse.getName());
+            ps.setString(2, warehouse.getAddress());
+            ps.setDate(3, Date.valueOf(warehouse.getDateOfEstablishment()));
+            ps.setInt(4, warehouse.getMaxStorage());
+            ps.setInt(5, (items != null && !items.isEmpty()) ? warehouse.getCurrentStorage() : 0);
+            ps.setBoolean(6, warehouse.isDisabled());
+            ps.executeUpdate();
 
-                ps.executeUpdate();
-                ResultSet rs = ps.getGeneratedKeys();
-
+            try (ResultSet rs = ps.getGeneratedKeys()) {
                 if (!rs.next()) {
                     throw new SQLException("Warehouse ID generation failed");
                 }
@@ -207,9 +205,6 @@ public class WarehouseDAO {
                 }
 
                 return warehouseId;
-
-            } catch (SQLException e) {
-                throw e;
             }
 
         } catch (SQLException e) {

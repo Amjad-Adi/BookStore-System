@@ -2,7 +2,7 @@ module com.example.database {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
-
+    requires mysql.connector.j;
     opens com.example.database to javafx.fxml;
     opens com.example.database.DashBoard to javafx.fxml,javafx.base;
     opens com.example.database.Customer to javafx.fxml,javafx.base;
@@ -14,3 +14,4 @@ module com.example.database {
 
     exports com.example.database;
 }
+
